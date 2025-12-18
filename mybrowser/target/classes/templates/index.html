@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pro Browser Stack v2.0</title>
+    <style>
+        :root { --primary: #007AFF; --bg: #121212; --card: #1E1E1E; --text: #FFFFFF; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .app-container { width: 900px; height: 600px; background: var(--card); border-radius: 20px; display: flex; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #333; }
+        
+        /* Sidebar Styles */
+        .sidebar { width: 250px; background: #181818; border-right: 1px solid #333; padding: 20px; display: flex; flex-direction: column; }
+        .stack-box { flex: 1; overflow-y: auto; margin-bottom: 20px; }
+        .stack-title { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .history-item { padding: 8px 12px; background: #2a2a2a; border-radius: 6px; margin-bottom: 5px; font-size: 13px; color: #bbb; border-left: 3px solid var(--primary); }
+        
+        /* Main Area */
+        .main-content { flex: 1; display: flex; flex-direction: column; padding: 0; }
+        .toolbar { padding: 15px; background: #252525; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #333; }
+        .nav-btn { background: #333; border: none; color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .nav-btn:hover:not(:disabled) { background: var(--primary); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .url-input { flex: 1; background: #121212; border: 1px solid #444; color: white; padding: 10px 15px; border-radius: 10px; outline: none; }
+        
+        /* Browser Window */
+        .viewport { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%); position: relative; }
+        .current-url { font-size: 42px; font-weight: 700; color: var(--primary); text-shadow: 0 0 20px rgba(0,122,255,0.3); }
+        .status-badge { background: rgba(0,122,255,0.1); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-top: 10px; border: 1px solid var(--primary); }
+        
+        .clear-btn { background: #ff3b30; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="stack-box">
+                <div class="stack-title">Back Stack (LIFO)</div>
+                <div th:each="page : ${backHistory}" class="history-item" th:text="${page}"></div>
+            </div>
+            <div class="stack-box">
+                <div class="stack-title">Forward Stack</div>
+                <div th:each="page : ${forwardHistory}" class="history-item" th:text="${page}"></div>
+            </div>
+            <form th:action="@{/clear}" method="post">
+                <button type="submit" class="clear-btn">Clear All History</button>
+            </form>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <form th:action="@{/back}" method="post" style="display:inline;">
+                    <button type="submit" class="nav-btn" th:disabled="${!hasBack}">←</button>
+                </form>
+                <form th:action="@{/forward}" method="post" style="display:inline;">
+                    <button type="submit" class="nav-btn" th:disabled="${!hasForward}">→</button>
+                </form>
+                <form th:action="@{/visit}" method="post" style="display: flex; flex: 1; gap: 10px;">
+                    <input type="text" name="url" class="url-input" placeholder="Enter URL and press Enter..." required>
+                </form>
+            </div>
+
+            <div class="viewport">
+                <div style="font-size: 14px; color: #666; margin-bottom: 10px;">NOW VIEWING</div>
+                <div class="current-url" th:text="${current}">URL</div>
+                <div class="status-badge">Secure Connection Verified</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
