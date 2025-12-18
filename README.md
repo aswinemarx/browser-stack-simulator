@@ -719,43 +719,11 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-```
-MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, and distribute, subject to whom the
-Software is furnished to do so, subject to the following conditions:
-...
-```
-
----
-
-## 👨‍💻 Author
-
-**Your Name**  
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-
----
-
 ## 🙏 Acknowledgments
 
 - Inspired by real-world browser navigation patterns
 - Built with Spring Boot and modern web technologies
 - Thanks to the Java and Spring communities
-
----
-
-## 📞 Support
-
-For support, email support@example.com or open an issue in the repository.
 
 ---
 
